@@ -9,8 +9,7 @@ class InvoiceController extends Controller
 {
     function get_all_invoice()
     {
-        $invoices = Invoice::all();
-        return response()->json(
-            $invoices);
+        $invoices = Invoice::with("customer")->orderBy("id","DESC")->get();
+        return response()->json($invoices);
     }
 }
