@@ -1,8 +1,10 @@
 <script setup>
 import {onMounted, ref} from "vue";
+import {useRouter} from "vue-router";
 
+const router= useRouter();
 let invoices = ref([]);
-let searchInvoice=ref([]);
+let searchInvoice = ref([]);
 onMounted(
     async () => {
         getInvoices()
@@ -11,14 +13,19 @@ onMounted(
 const getInvoices = async () => {
     let response = await axios.get("/api/get_all_invoice");
     // console.log(response);
-    invoices.value=response.data;
+    invoices.value = response.data;
 
 }
-const search = async()=> {
-    let response = await axios.get("/api/search_invoice?s="+searchInvoice.value)
-    console.log(response);
-    invoices.value=response.data;
+const search = async () => {
+    let response = await axios.get("/api/search_invoice?s=" + searchInvoice.value)
+    // console.log(response);
+    invoices.value = response.data;
 }
+const newInvoice = async ()=>{
+    // let form = await axios.get("");
+    router.push("/invoice/new");
+}
+
 </script>
 <template>
     <div class="container">
@@ -31,7 +38,7 @@ const search = async()=> {
                     <h2 class="invoice__title">Invoices</h2>
                 </div>
                 <div>
-                    <a class="btn btn-secondary">
+                    <a class="btn btn-secondary" @click="newInvoice()">
                         New Invoice
                     </a>
                 </div>
@@ -67,7 +74,7 @@ const search = async()=> {
                     <div class="relative">
                         <i class="table--search--input--icon fas fa-search "></i>
                         <input class="table--search--input" type="text" placeholder="Search invoice"
-                        v-model="searchInvoice" @keyup="search()">
+                               v-model="searchInvoice" @keyup="search()">
                     </div>
                 </div>
 
@@ -82,12 +89,12 @@ const search = async()=> {
 
                 <!-- item 1 -->
                 <div class="table--items" v-for="item in invoices" :key="item.id" v-if="invoices.length>0">
-                    <a href="#" class="table--items--transactionId">#{{item.id}}</a>
-                    <p>{{item.date}}</p>
-                    <p>#{{item.number}}</p>
-                    <p v-if="item.customer">{{item.customer.firstname}}</p>
-                    <p>{{item.due_date}}</p>
-                    <p> $ {{item.total}}</p>
+                    <a href="#" class="table--items--transactionId">#{{ item.id }}</a>
+                    <p>{{ item.date }}</p>
+                    <p>#{{ item.number }}</p>
+                    <p v-if="item.customer">{{ item.customer.firstname }}</p>
+                    <p>{{ item.due_date }}</p>
+                    <p> $ {{ item.total }}</p>
                 </div>
                 <div class="table--items" v-else>
                     Invoice Not Found
