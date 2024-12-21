@@ -13,6 +13,11 @@ class InvoiceController extends Controller
         $invoices = Invoice::with("customer")->orderBy("id", "DESC")->get();
         return response()->json($invoices);
     }
+    function getInvoiceById($id)
+    {
+        $invoices = Invoice::with(["customer","items.product"])->find($id);
+        return response()->json($invoices);
+    }
 
     function add_invoice(Request $request)
     {
