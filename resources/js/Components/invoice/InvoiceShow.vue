@@ -25,6 +25,13 @@ const print = ()=>{
     window.print();
     router.push("/invoice");
 }
+const edit = ()=>{
+    router.push("/invoice/edit/"+props.id);
+}
+const deleteInvoice =async ()=>{
+   await axios.get("/api/invoice/delete/"+props.id);
+    router.push("/invoice");
+}
 
 </script>
 <template>
@@ -58,7 +65,7 @@ const print = ()=>{
                         </li>
                         <li>
                             <!-- Select Btn Option -->
-                            <button class="selectBtnFlat">
+                            <button class="selectBtnFlat" @click="edit()">
                                 <i class=" fas fa-reply"></i>
                                 Edit
                             </button>
@@ -66,7 +73,7 @@ const print = ()=>{
                         </li>
                         <li>
                             <!-- Select Btn Option -->
-                            <button class="selectBtnFlat ">
+                            <button class="selectBtnFlat " @click="deleteInvoice()">
                                 <i class=" fas fa-pencil-alt"></i>
                                 Delete
                             </button>

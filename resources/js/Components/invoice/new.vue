@@ -7,7 +7,6 @@ const router = useRouter();
 let invoice = ref([]);
 invoice.value.discount = ref(0);
 let customers = ref([]);
-let selectedCustomer = ref([]);
 
 let item = ref([]);
 let cart = ref([]);
@@ -63,6 +62,7 @@ let onSave = () => {
     payload.append("reference",invoice.value.reference);
     payload.append("terms_and_conditions",invoice.value.terms_and_conditions);
     payload.append("sub_total",subTotal());
+    payload.append("discount",invoice.value.discount);
     payload.append("total",total());
     payload.append("invoice_items",JSON.stringify(cart.value));
     axios.post("/api/add_invoice", payload);

@@ -23,7 +23,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/get_all_invoice',[InvoiceController::class,'get_all_invoice']);
 Route::get('/invoice/{id}',[InvoiceController::class,'getInvoiceById']);
+Route::get('/invoice/delete/{id}',[InvoiceController::class,'delete']);
+
 Route::post('/add_invoice',[InvoiceController::class,'add_invoice']);
+Route::post('/update_invoice',[InvoiceController::class,'update_invoice']);
 Route::get('/search_invoice',[InvoiceController::class,'search_invoice']);
+
 Route::get('/customers/all',[CustomerController::class,'getAll']);
 Route::get('/products/all',[ProductController::class,'getAll']);

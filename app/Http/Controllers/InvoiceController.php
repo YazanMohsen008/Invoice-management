@@ -13,22 +13,47 @@ class InvoiceController extends Controller
         $invoices = Invoice::with("customer")->orderBy("id", "DESC")->get();
         return response()->json($invoices);
     }
+
     function getInvoiceById($id)
     {
-        $invoices = Invoice::with(["customer","items.product"])->find($id);
+        $invoices = Invoice::with(["customer", "items.product"])->find($id);
+        return response()->json($invoices);
+    }
+    function delete($id)
+    {
+        $invoices = Invoice::with(["items"])->find($id);
+        $invoices->items()->delete();
+        $invoices->delete();
         return response()->json($invoices);
     }
 
     function add_invoice(Request $request)
     {
         $invoice = $request->all();
-        $createdInvoice=Invoice::create($invoice);
-        $invoiceItems =json_decode( $invoice["invoice_items"]);
+        $createdInvoice = Invoice::create($invoice);
+        $invoiceItems = json_decode($invoice["invoice_items"]);
         foreach ($invoiceItems as $item) {
-            $invoiceItem["invoice_id"]=$createdInvoice->id;
-            $invoiceItem["product_id"]=$item->id;
-            $invoiceItem["unit_price"]=$item->unit_price;
-            $invoiceItem["quantity"]=$item->quantity;
+            $invoiceItem["invoice_id"] = $createdInvoice->id;
+            $invoiceItem["product_id"] = $item->id;
+            $invoiceItem["unit_price"] = $item->unit_price;
+            $invoiceItem["quantity"] = $item->quantity;
+            InvoiceItems::create($invoiceItem);
+        }
+        return response()->json();
+    }
+
+    function update_invoice(Request $request)
+    {
+        $invoiceId = $request->only("id");
+        $invoice = Invoice::find($invoiceId)->first();
+        $invoice->update( $request->all());
+        $invoice->items()->delete();
+        $invoiceItems = json_decode($request["invoice_items"]);
+        foreach ($invoiceItems as $item) {
+            $invoiceItem["invoice_id"] = $invoice->id;
+            $invoiceItem["product_id"] = $item->product->id;
+            $invoiceItem["unit_price"] = $item->unit_price;
+            $invoiceItem["quantity"] = $item->quantity;
             InvoiceItems::create($invoiceItem);
         }
         return response()->json();
