@@ -176,11 +176,6 @@ const deleteInvoice =async ()=>{
                 <div>
 
                 </div>
-                <div>
-                    <a class="btn btn-secondary">
-                        Save
-                    </a>
-                </div>
             </div>
 
         </div>

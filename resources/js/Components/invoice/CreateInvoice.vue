@@ -65,7 +65,7 @@ let onSave = () => {
     payload.append("discount",invoice.value.discount);
     payload.append("total",total());
     payload.append("invoice_items",JSON.stringify(cart.value));
-    axios.post("/api/add_invoice", payload);
+    axios.post("/api/invoice/add", payload);
     router.push("/invoice");
 }
 

@@ -11,13 +11,13 @@ onMounted(
     }
 )
 const getInvoices = async () => {
-    let response = await axios.get("/api/get_all_invoice");
+    let response = await axios.get("/api/invoice/all");
     // console.log(response);
     invoices.value = response.data;
 
 }
 const search = async () => {
-    let response = await axios.get("/api/search_invoice?s=" + searchInvoice.value)
+    let response = await axios.get("/api/invoice/search?s=" + searchInvoice.value)
     invoices.value = response.data;
 }
 const newInvoice = ()=>{

@@ -78,7 +78,7 @@ let onSave = () => {
     payload.append("discount",invoice.value.discount);
     payload.append("total",total());
     payload.append("invoice_items",JSON.stringify(cart.value));
-    axios.post("/api/update_invoice", payload);
+    axios.post("/api/invoice/update", payload);
     router.push("/invoice");
 }
 </script>

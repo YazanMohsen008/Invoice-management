@@ -1,9 +1,9 @@
 import {createRouter, createWebHistory} from "vue-router";
-import Invoice from "./Components/invoice/Invoice.vue"
-import NewInvoice from "./Components/invoice/new.vue"
-import InvoiceShow from "./Components/invoice/InvoiceShow.vue"
+import Invoice from "./Components/invoice/ShowInvoices.vue"
+import NewInvoice from "./Components/invoice/CreateInvoice.vue"
+import InvoiceShow from "./Components/invoice/ShowInvoice.vue"
 import NotFound from "./Components/NotFound.vue"
-import InvoiceEdit from "./Components/invoice/InvoiceEdit.vue";
+import InvoiceEdit from "./Components/invoice/EditInvoice.vue";
 
 const routes = [
     {

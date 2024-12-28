@@ -8,26 +8,7 @@ use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
 {
-    function get_all_invoice()
-    {
-        $invoices = Invoice::with("customer")->orderBy("id", "DESC")->get();
-        return response()->json($invoices);
-    }
-
-    function getInvoiceById($id)
-    {
-        $invoices = Invoice::with(["customer", "items.product"])->find($id);
-        return response()->json($invoices);
-    }
-    function delete($id)
-    {
-        $invoices = Invoice::with(["items"])->find($id);
-        $invoices->items()->delete();
-        $invoices->delete();
-        return response()->json($invoices);
-    }
-
-    function add_invoice(Request $request)
+    function add(Request $request)
     {
         $invoice = $request->all();
         $createdInvoice = Invoice::create($invoice);
@@ -42,7 +23,7 @@ class InvoiceController extends Controller
         return response()->json();
     }
 
-    function update_invoice(Request $request)
+    function update(Request $request)
     {
         $invoiceId = $request->only("id");
         $invoice = Invoice::find($invoiceId)->first();
@@ -58,8 +39,20 @@ class InvoiceController extends Controller
         }
         return response()->json();
     }
+    function all()
+    {
+        $invoices = Invoice::with("customer")->orderBy("id", "DESC")->get();
+        return response()->json($invoices);
+    }
 
-    function search_invoice(Request $request)
+    function byId($id)
+    {
+        $invoices = Invoice::with(["customer", "items.product"])->find($id);
+        return response()->json($invoices);
+    }
+
+
+    function search(Request $request)
     {
         $search = $request->get("s");
         if ($search == null)
@@ -71,4 +64,12 @@ class InvoiceController extends Controller
         return response()->json($invoices);
 
     }
+    function delete($id)
+    {
+        $invoices = Invoice::with(["items"])->find($id);
+        $invoices->items()->delete();
+        $invoices->delete();
+        return response()->json($invoices);
+    }
+
 }
