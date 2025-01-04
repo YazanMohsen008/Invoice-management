@@ -3,7 +3,7 @@
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,16 +17,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/login', [UserController::class, 'login'])->name("login");
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::group(['prefix' => 'invoice'], function () {
+        Route::post('/add', [InvoiceController::class, 'add']);
+        Route::post('/update', [InvoiceController::class, 'update']);
+        Route::get('/search', [InvoiceController::class, 'search']);
+        Route::get('/all', [InvoiceController::class, 'all']);
+        Route::get('/delete/{id}', [InvoiceController::class, 'delete']);
+        Route::get('/{id}', [InvoiceController::class, 'byId']);
+    });
+    Route::get('/customers/all', [CustomerController::class, 'getAll']);
+    Route::get('/products/all', [ProductController::class, 'getAll']);
 });
-
-Route::post('/invoice/add',[InvoiceController::class,'add']);
-Route::post('/invoice/update',[InvoiceController::class,'update']);
-Route::get('/invoice/search',[InvoiceController::class,'search']);
-Route::get('/invoice/all',[InvoiceController::class,'all']);
-Route::get('/invoice/delete/{id}',[InvoiceController::class,'delete']);
-Route::get('/invoice/{id}',[InvoiceController::class,'byId']);
-
-Route::get('/customers/all',[CustomerController::class,'getAll']);
-Route::get('/products/all',[ProductController::class,'getAll']);
