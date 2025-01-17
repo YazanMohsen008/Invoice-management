@@ -23,7 +23,7 @@ class UserController extends Controller
             $success["user"] = $user->name;
             return response()->json($success);
         } else {
-            return response()->json("Failed");
+            return response()->json("Invalid Email or Password",401);
         }
 
     }

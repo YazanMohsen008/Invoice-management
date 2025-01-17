@@ -1,3 +1,5 @@
+const {useToast} = require("vue-toast-notification");
+
 window._ = require('lodash');
 
 /**
@@ -19,11 +21,24 @@ window.axios.interceptors.request.use((config) => {
 
 window.axios.interceptors.response.use(
     function (response) {
+        const $toast = useToast();
+        // Show a success toast
+        $toast.success(response.data, {
+            position: 'top-right',
+            duration: 5000, // Toast duration in milliseconds
+            dismissible: true, // Allow users to manually dismiss the toast
+        });
         return response;
     },
     function (error) {
-        if (error.response.status = 401)
-            // router.push("/");
+        const $toast = useToast();
+        $toast.error(error.response.data, {
+            position: 'bottom-right',
+            duration: 5000, // Toast duration in milliseconds
+            dismissible: true, // Allow users to manually dismiss the toast
+        });
+        if (error.response.status === 401) {
+        }
         return Promise.reject(error);
     }
 );
