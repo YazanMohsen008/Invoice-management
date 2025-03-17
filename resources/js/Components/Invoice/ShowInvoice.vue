@@ -1,6 +1,7 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import {useRouter} from "vue-router";
+import NavigationBar from "../Utils/NavigationBar.vue";
 
 const router= useRouter();
 let invoice = ref({id:''});
@@ -23,41 +24,42 @@ const getInvoiceById = async () => {
 }
 const print = ()=>{
     window.print();
-    router.push("/invoice");
+    router.push("/Invoice");
 }
 const edit = ()=>{
-    router.push("/invoice/edit/"+props.id);
+    router.push("/Invoice/edit/"+props.id);
 }
 const deleteInvoice =async ()=>{
    await axios.get("/api/invoice/delete/"+props.id);
-    router.push("/invoice");
+    router.push("/Invoice");
 }
 
 </script>
 <template>
-    <div class="container">
+    <NavigationBar></NavigationBar>
+    <div class="">
 
         <div class="invoices">
 
-            <div class="card__header">
-                <div>
-                    <h2 class="invoice__title">Invoice</h2>
-                </div>
-                <div>
+<!--            <div class="card__header">-->
+<!--                <div>-->
+<!--                    <h2 class="invoice__title">Invoice</h2>-->
+<!--                </div>-->
+<!--                <div>-->
 
-                </div>
-            </div>
-            <div>
-                <div class="card__header--title ">
-                    <h1 class="mr-2">#{{invoice.id}}</h1>
-                    <p>{{invoice.created_at}} </p>
-                </div>
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <div class="card__header&#45;&#45;title ">-->
+<!--                    <h1 class="mr-2">#{{invoice.id}}</h1>-->
+<!--                    <p>{{invoice.created_at}} </p>-->
+<!--                </div>-->
 
                 <div>
                     <ul class="card__header-list">
                         <li>
                             <!-- Select Btn Option -->
-                            <button @click="print()" class="selectBtnFlat">
+                            <button @click="print()" class="selectBtnFlat text-dark">
                                 <i class="fas fa-print"></i>
                                 Print
                             </button>
@@ -65,7 +67,7 @@ const deleteInvoice =async ()=>{
                         </li>
                         <li>
                             <!-- Select Btn Option -->
-                            <button class="selectBtnFlat" @click="edit()">
+                            <button class="selectBtnFlat text-dark" @click="edit()">
                                 <i class=" fas fa-reply"></i>
                                 Edit
                             </button>
@@ -73,7 +75,7 @@ const deleteInvoice =async ()=>{
                         </li>
                         <li>
                             <!-- Select Btn Option -->
-                            <button class="selectBtnFlat " @click="deleteInvoice()">
+                            <button class="selectBtnFlat text-dark" @click="deleteInvoice()">
                                 <i class=" fas fa-pencil-alt"></i>
                                 Delete
                             </button>
@@ -82,12 +84,12 @@ const deleteInvoice =async ()=>{
 
                     </ul>
                 </div>
-            </div>
+<!--            </div>-->
 
             <div class="table invoice">
-                <div class="logo">
-                    <img src="assets/img/logo.png" alt="" style="width: 200px;">
-                </div>
+<!--                <div class="logo">-->
+<!--                    <img src="assets/img/logo.png" alt="" style="width: 200px;">-->
+<!--                </div>-->
                 <div class="invoice__header--title">
                     <p></p>
                     <p class="invoice__header--title-1">Invoice</p>
@@ -96,10 +98,6 @@ const deleteInvoice =async ()=>{
 
 
                 <div class="invoice__header--item">
-                    <div>
-                        <h2>Invoice To:</h2>
-                        <p v-if="invoice.customer">{{invoice.customer.firstname}}</p>
-                    </div>
                     <div>
                         <div class="invoice__header--item1">
                             <p>Invoice#</p>
@@ -117,7 +115,14 @@ const deleteInvoice =async ()=>{
                             <p>Reference</p>
                             <span>{{invoice.reference}}</span>
                         </div>
-
+                        <div class="invoice__header--item2">
+                            <p>Invoice To</p>
+                            <span v-if="invoice.customer">{{invoice.customer.firstname}}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h2>Terms and Conditions</h2>
+                        <p>{{invoice.terms_and_conditions}}</p>
                     </div>
                 </div>
 
@@ -157,10 +162,7 @@ const deleteInvoice =async ()=>{
                 </div>
 
                 <div class="invoice__total">
-                    <div>
-                        <h2>Terms and Conditions</h2>
-                        <p>{{invoice.terms_and_conditions}}</p>
-                    </div>
+
                     <div>
                         <div class="grand__total">
                             <div class="grand__total--items">

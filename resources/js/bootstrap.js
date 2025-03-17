@@ -21,13 +21,13 @@ window.axios.interceptors.request.use((config) => {
 
 window.axios.interceptors.response.use(
     function (response) {
-        const $toast = useToast();
-        // Show a success toast
-        $toast.success(response.data, {
-            position: 'top-right',
-            duration: 5000, // Toast duration in milliseconds
-            dismissible: true, // Allow users to manually dismiss the toast
-        });
+        // const $toast = useToast();
+        // // Show a success toast
+        // $toast.success(response.data, {
+        //     position: 'top-right',
+        //     duration: 5000, // Toast duration in milliseconds
+        //     dismissible: true, // Allow users to manually dismiss the toast
+        // });
         return response;
     },
     function (error) {

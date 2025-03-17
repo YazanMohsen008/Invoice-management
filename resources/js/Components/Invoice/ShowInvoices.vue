@@ -1,6 +1,7 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import {useRouter} from "vue-router";
+import NavigationBar from "../Utils/NavigationBar.vue";
 
 const router= useRouter();
 let invoices = ref([]);
@@ -21,50 +22,50 @@ const search = async () => {
     invoices.value = response.data;
 }
 const newInvoice = ()=>{
-    router.push("/invoice/new");
+    router.push("/Invoice/new");
 }
 const onShow = (id)=> {
-    router.push("/invoice/show/"+id);
+    router.push("/Invoice/show/"+id);
 }
 
 </script>
 <template>
-    <div class="container">
-
+    <NavigationBar></NavigationBar>
+    <div class="">
         <!--==================== INVOICE LIST ====================-->
         <div class="invoices">
 
-            <div class="card__header">
-                <div>
-                    <h2 class="invoice__title">Invoices</h2>
-                </div>
-                <div>
-                    <a class="btn btn-secondary" @click="newInvoice()">
-                        New Invoice
-                    </a>
-                </div>
-            </div>
+<!--            <div class="card__header">-->
+<!--                <div>-->
+<!--                    <h2 class="invoice__title">Invoices</h2>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <a class="btn btn-secondary" @click="newInvoice()">-->
+<!--                        New Invoice-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </div>-->
 
             <div class="table card__content">
-                <div class="table--filter">
-                <span class="table--filter--collapseBtn ">
-                    <i class="fas fa-ellipsis-h"></i>
-                </span>
-                    <div class="table--filter--listWrapper">
-                        <ul class="table--filter--list">
-                            <li>
-                                <p class="table--filter--link table--filter--link--active">
-                                    All
-                                </p>
-                            </li>
-                            <li>
-                                <p class="table--filter--link ">
-                                    Paid
-                                </p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+<!--                <div class="table&#45;&#45;filter">-->
+<!--                <span class="table&#45;&#45;filter&#45;&#45;collapseBtn ">-->
+<!--                    <i class="fas fa-ellipsis-h"></i>-->
+<!--                </span>-->
+<!--                    <div class="table&#45;&#45;filter&#45;&#45;listWrapper">-->
+<!--                        <ul class="table&#45;&#45;filter&#45;&#45;list">-->
+<!--                            <li>-->
+<!--                                <p class="table&#45;&#45;filter&#45;&#45;link table&#45;&#45;filter&#45;&#45;link&#45;&#45;active">-->
+<!--                                    All-->
+<!--                                </p>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p class="table&#45;&#45;filter&#45;&#45;link ">-->
+<!--                                    Paid-->
+<!--                                </p>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
 
                 <div class="table--search">
                     <div class="table--search--wrapper">

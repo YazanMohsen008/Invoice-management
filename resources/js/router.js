@@ -1,10 +1,12 @@
 import {createRouter, createWebHistory} from "vue-router";
 import Login from "./Components/Auth/Login.vue"
-import AllInvoice from "./Components/invoice/ShowInvoices.vue"
-import NewInvoice from "./Components/invoice/CreateInvoice.vue"
-import InvoiceShow from "./Components/invoice/ShowInvoice.vue"
+import AllInvoice from "./Components/Invoice/ShowInvoices.vue"
+import NewInvoice from "./Components/Invoice/CreateInvoice.vue"
+import InvoiceShow from "./Components/Invoice/ShowInvoice.vue"
 import NotFound from "./Components/NotFound.vue"
-import InvoiceEdit from "./Components/invoice/EditInvoice.vue";
+import InvoiceEdit from "./Components/Invoice/EditInvoice.vue";
+import AboutUs from "./Components/Extra/AboutUs.vue";
+import ContactUs from "./Components/Extra/ContactUs.vue";
 
 const routes = [
     {
@@ -16,18 +18,26 @@ const routes = [
         component: AllInvoice
     },
     {
-        path: '/invoice/new',
+        path: '/Invoice/new',
         component: NewInvoice
     },
     {
-        path: '/invoice/show/:id',
+        path: '/Invoice/show/:id',
         component: InvoiceShow,
         props: true
     },
     {
-        path: '/invoice/edit/:id',
+        path: '/Invoice/edit/:id',
         component: InvoiceEdit,
         props: true
+    },
+    {
+        path: '/AboutUs',
+        component: AboutUs,
+    },
+    {
+        path: '/ContactUs',
+        component: ContactUs,
     },
     {
         path: '/:pathMatch(.*)*',

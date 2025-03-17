@@ -1,6 +1,7 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import {useRouter} from "vue-router";
+import NavigationBar from "../Utils/NavigationBar.vue";
 
 const router= useRouter();
 let invoice = ref({id:''});
@@ -79,10 +80,11 @@ let onSave = () => {
     payload.append("total",total());
     payload.append("invoice_items",JSON.stringify(cart.value));
     axios.post("/api/invoice/update", payload);
-    router.push("/invoice");
+    router.push("/Invoice");
 }
 </script>
 <template>
+    <NavigationBar></NavigationBar>
     <div class="container">
         <div class="invoices">
 

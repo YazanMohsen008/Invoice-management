@@ -1,6 +1,7 @@
 <script setup>
 import {onMounted, ref} from 'vue'
 import {useRouter} from "vue-router";
+import NavigationBar from "../Utils/NavigationBar.vue";
 
 const router = useRouter();
 
@@ -66,22 +67,23 @@ let onSave = () => {
     payload.append("total",total());
     payload.append("invoice_items",JSON.stringify(cart.value));
     axios.post("/api/invoice/add", payload);
-    router.push("/invoice");
+    router.push("/Invoice");
 }
 
 </script>
 <template>
+    <NavigationBar></NavigationBar>
     <br><br><br>
     <div class="invoices">
 
-        <div class="card__header">
-            <div>
-                <h2 class="invoice__title">New Invoice</h2>
-            </div>
-            <div>
+<!--        <div class="card__header">-->
+<!--            <div>-->
+<!--                <h2 class="invoice__title">New Invoice</h2>-->
+<!--            </div>-->
+<!--            <div>-->
 
-            </div>
-        </div>
+<!--            </div>-->
+<!--        </div>-->
 
         <div class="card__content">
             <div class="card__content--header">
@@ -137,7 +139,7 @@ let onSave = () => {
                     </p>
                 </div>
                 <div style="padding: 10px 30px !important;">
-                    <button class="btn btn-sm btn__open--modal" @click="openModal()">Add New Line</button>
+                    <button class="btn btn-sm btn__open--modal" @click="openModal()">New Item</button>
                 </div>
             </div>
 
@@ -190,7 +192,7 @@ let onSave = () => {
             <!--            </div> -->
             <div class="modal__items">
                 <ul class="input my-1">
-                    <li value="product.id" :key="product.id" v-for="product in products">{{ product.item_code }}
+                    <li class="d-flex justify-content-between" value="product.id" :key="product.id" v-for="product in products">{{ product.item_code }}
                         {{ product.description }}
                         <button class="btn btn-light btn__close--modal " @click="addItemToCart(product)">+</button>
                     </li>
